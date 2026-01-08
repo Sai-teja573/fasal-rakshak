@@ -1,0 +1,370 @@
+/**
+ * Global Styles
+ * iOS Glass Effects, Safe Areas, and Smooth Transitions
+ */
+
+/* Base styles */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* iOS Glass Effect */
+.ios-glass {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.ios-glass-light {
+  -webkit-backdrop-filter: saturate(120%) blur(8px);
+  backdrop-filter: saturate(120%) blur(8px);
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.ios-glass-medium {
+  -webkit-backdrop-filter: saturate(150%) blur(12px);
+  backdrop-filter: saturate(150%) blur(12px);
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.ios-glass-heavy {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Dark mode glass */
+.dark .ios-glass-light {
+  background-color: rgba(15, 23, 42, 0.7);
+}
+
+.dark .ios-glass-medium {
+  background-color: rgba(15, 23, 42, 0.75);
+}
+
+.dark .ios-glass-heavy {
+  background-color: rgba(15, 23, 42, 0.85);
+}
+
+/* iOS-like safe area padding */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(env(safe-area-inset-top), 0px);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  }
+  
+  .safe-area-left {
+    padding-left: max(env(safe-area-inset-left), 0px);
+  }
+  
+  .safe-area-right {
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+  
+  .safe-area-all {
+    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
+
+/* Smooth scrolling for iOS */
+.ios-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbars but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Haptic feedback simulation */
+@media (pointer: coarse) {
+  .haptic-tap {
+    transition: transform 0.1s ease;
+  }
+  
+  .haptic-tap:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Page transition container */
+.page-transition-container {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* Swipe back indicator */
+.swipe-back-indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 100px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.swipe-back-indicator::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 60%;
+  margin: 20% auto;
+  background: linear-gradient(to bottom, transparent, rgba(74, 222, 128, 0.6), transparent);
+  border-radius: 4px;
+}
+
+/* Grain texture overlay */
+.bg-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+  /* Disable text selection in PWA mode for app-like feel */
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Allow selection in inputs and textareas */
+  input, textarea, [contenteditable="true"] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
+/* Smooth transitions for theme changes */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Button press animation */
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+/* Slide animations */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-30%);
+    opacity: 0.5;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-30%);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Focus outline for accessibility */
+*:focus-visible {
+  outline: 2px solid rgba(74, 222, 128, 0.5);
+  outline-offset: 2px;
+}
+
+/* Prevent bounce on iOS - but allow inner scroll */
+html {
+  overscroll-behavior: none;
+}
+
+/* Smooth border radius transition */
+.smooth-corners {
+  border-radius: 1rem;
+  transition: border-radius 0.2s ease;
+}
+
+.smooth-corners-lg {
+  border-radius: 1.5rem;
+}
+
+.smooth-corners-xl {
+  border-radius: 2rem;
+}
+
+/* Universal smooth transitions */
+.smooth-all {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* App container for scroll */
+.app-scroll-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+}
+
+/* Modal backdrop blur */
+.modal-backdrop {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-hover:active {
+  transform: scale(0.98);
+}
+
+/* Button smooth interaction */
+.btn-smooth {
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 0.75rem;
+}
+
+.btn-smooth:hover {
+  transform: translateY(-1px);
+}
+
+.btn-smooth:active {
+  transform: scale(0.97);
+}
+
+/* Ultra smooth corners - iOS style */
+.rounded-smooth {
+  border-radius: 1rem;
+}
+
+.rounded-smooth-lg {
+  border-radius: 1.25rem;
+}
+
+.rounded-smooth-xl {
+  border-radius: 1.5rem;
+}
+
+.rounded-smooth-2xl {
+  border-radius: 2rem;
+}
+
+/* Smooth input focus transition */
+input, textarea, select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Loading skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 75%
+  );
+  background-size: 200% 100%;
+}

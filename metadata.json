@@ -1,0 +1,9 @@
+{
+  "name": "fasal Rakshak",
+  "description": "AI-powered Crop Doctor for early disease detection and treatment advice.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation",
+    "microphone"
+  ]
+}
